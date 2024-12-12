@@ -210,7 +210,7 @@
   %/defaultdevice cvx 0 .quit  % insert and uncomment this where needed
   % (startcolumn is one-based)
   exch (before zero-basing columnwidth: ) #only #stack
-  dup 1 sub columnwidth mul margin add /x exch def
+  3 index 1 sub columnwidth mul margin add /x exch def
   /wordlist [] def  % empty so `column` knows to read source
   /pcount 0 def  /pindex 0 def
   2 index ceiling cvi % e.g., 1.5 columns means 2 column width
