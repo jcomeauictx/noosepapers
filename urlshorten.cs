@@ -1,4 +1,4 @@
-#! ../../casperscript/bin/bccs --
+#!/usr/local/casperscript/bin/bccs --
 /urlshorten  ( url - shorturl true OR url false
   generate a short URL for a long one) docstring {
   10 dict begin
@@ -8,11 +8,11 @@
     {
       {
         urand 36 10 string cvrs string.lower
-        %(stack after creating directory name: ) #only #stack
-        (../gnixl.com/l/) exch string.add dup 8#755
-        %(stack before os.mkdir: ) #only #stack
+        (stack after creating directory name: ) #only #stack
+        (../gnixl/gnixl.com/l/) exch string.add dup 8#755
+        (stack before os.mkdir: ) #only #stack
         os.mkdir
-        %(stack after os.mkdir: ) #only #stack
+        (stack after os.mkdir: ) #only #stack
       }
       stopped
         {cleartomark mark}
@@ -20,16 +20,16 @@
         ifelse
     }
     repeat
-  %(after mkdir: ) #only #stack
+  (after mkdir: ) #only #stack
   true ne  % failure would leave only a -mark- on stack
     {(failed after ) #only tries #only ( attempts) # false}
     {
       dup (/../../.htaccess) string.add (a) file
       exch [12] substring  % chop first part of path to form URL
-      %(after substring: ) #only #stack
-      %(after forming URL: ) #only #stack
+      (after substring: ) #only #stack
+      (after forming URL: ) #only #stack
       (Redirect 301 ) 1 index string.add  % "from" URL added
-      %(first part of redirect: ) #only %#stack
+      (first part of redirect: ) #only %#stack
       ( ) string.add 5 -1 roll string.add %#stack
       (\n) string.add 2 index exch writestring %#stack
       exch closefile %#stack
@@ -37,7 +37,7 @@
       (gnixl.com) exch string.add  % return as full URL except for scheme://
       true
     } ifelse
-  %(stack after urlshorten: ) #only #stack
+  (stack after urlshorten: ) #only #stack
   end
 } bind def
 
