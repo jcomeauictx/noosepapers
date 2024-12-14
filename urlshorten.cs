@@ -25,7 +25,8 @@
     {(failed after ) #only tries #only ( attempts) # false}
     {
       dup (/../../.htaccess) string.add (a) file
-      exch [12] substring  % chop first part of path to form URL
+      % chop first part of path to form URL
+      exch (../gnixl/gnixl.com) string.removeprefix
       (after substring: ) #only #stack
       (after forming URL: ) #only #stack
       (Redirect 301 ) 1 index string.add  % "from" URL added
