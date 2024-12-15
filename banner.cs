@@ -4,7 +4,7 @@
   show centered on page, horizontally and/or vertically) docstring {
   /centervertically exch def
   /centerhorizontally exch def
-  gsave
+  gsave newpath 0 0 moveto
   dup true charpath
   (pathbbox: ) #only [pathbbox] ##
   pathbbox /ury exch def /urx exch def /lly exch def /llx exch def
