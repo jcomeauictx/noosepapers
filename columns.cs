@@ -220,9 +220,11 @@
     dup  % save copy of rounded-up number of columns
     % select a new font size based on number of columns
     currentfont dup /FontName get exch font.size 3 -1 roll mul .7 mul selectfont
+    % show font name and size for debugging
+    (currentfont: ) #only currentfont dup /FontName get #only ( ) #only font.size #
     % use fontsize as a proxy for moving to baseline. make it better later.
     (stack before top green line: ) #only #stack margin 4 index green hr
-    currentfont font.size 4 index exch sub x exch
+    currentfont font.size 5 index exch sub x exch
     (stack before drawing green line at baseline of headline: ) #only #stack
     margin 1 index green hr
     moveto headline
