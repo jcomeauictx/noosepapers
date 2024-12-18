@@ -249,12 +249,15 @@
     6 index  % columns, possibly fractional
     3 index  % column (loop) number
     5 index 1 sub  % start column, zero-based
+    (stack before sub in y1 calculation: ) #only #stack
     sub  % number of columns that will be completed once this is drawn
+    (stack after 1st sub in y1 calculation: ) #only #stack
     % if start column is 1, we're on column 3, and 2.3 columns are specified,
     % then we need to stop at 0.7 * columnheight.
     % same goes if start column is 2 with 1.3 total columns,
     % or start column 3 and 0.3 total.
     exch sub  % in all the above cases this will yield 0.7
+    (stack after exch sub in y1 calculation: ) #only #stack
     dup 0 ge 1 index 1 lt and  % are we on final column?
       {columnheight mul}  % yes, calculate stopheight
       {pop 0}  % otherwise paint all the way down the page
