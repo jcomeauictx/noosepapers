@@ -18,7 +18,7 @@ else
 export DATESTAMP VOLUME EDITION
 endif
 all: gallows.pgm default.txt noosepaper.log
-default.txt:
+default.txt: | $(TXTS)
 	@echo Manually symlink a .txt file to be default.txt >&2
 	false
 gallows.pgm: gallows.png
