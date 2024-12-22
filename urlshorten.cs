@@ -1,8 +1,10 @@
 #!/usr/local/casperscript/bin/bccs --
-/urlshorten  ( url - shorturl true OR url false
+/urllib false import
+/urlshorten  ( str#url - str#shorturl bool#true OR str#url bool#false
   generate a short URL for a long one) docstring {
   10 dict begin
   /tries 10 def
+  %dup urllib.quote (../gnixl/gnixl.com/l/) exch string.add dup os.path.exists
   mark  % make it easy to clean stack regardless of where it failed
   tries  % sufficient number of tries to find a unique random name
     {

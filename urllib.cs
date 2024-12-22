@@ -2,7 +2,7 @@
 /urllib 10 dict def urllib begin
   /parse 10 dict def parse begin
     /docstrings 10 dict def  % every "library" needs its own docstrings
-    /quote ( string#unquoted [string#safe string#unsafe?] - string#quoted
+    /quote ( str#unquoted [str#safe str#unsafe?] - str#quoted
       like Python3's `urllib.parse.quote`, escapes all characters
       that are neither in "unreserved" characters nor in `safe` arg
       but allows any range of safe and unsafe characters
@@ -19,7 +19,7 @@
         /reserved gendelims subdelims string.add def
         % can't safely use `%` below without risk of it being scanned
         % as comment---using its octal escape \045 instead.
-        /escape ( int#character - string#escaped
+        /escape ( int#character - str#escaped
           escape the character, i.e. ( ) becomes (\04520)) docstring {
           (\045) exch 16 2 string cvrs string.add
         } bind def
