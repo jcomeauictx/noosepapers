@@ -5,11 +5,12 @@
   10 dict begin
   /tries 10 def
   /urldomain (gnixl.com) def
-  /urldir (../gnixl/) urldomain string.add (/) string.add def
+  /urldir (../gnixl/) urldomain string.add def
   /linkdir (l/) def
-  /linkpath urldir linkdir string.add def
-  /urlprefix urldomain linkdir string.add def
-  dup [] urllib.parse.quote linkdir exch string.add
+  /linkpath urldir (/) string.add linkdir string.add def
+  /urlprefix urldomain (/) string.add linkdir string.add def
+  (definitions: ) #only currentdict ###
+  dup [] urllib.parse.quote linkpath exch string.add
   dup os.path.exists (stack before `mark`: ) #only #stack
     {128 string readlink urlprefix exch add true}
     {
@@ -48,9 +49,10 @@
           urldomain exch string.add  % return as full URL except for scheme://
           true
         } ifelse
-      %(stack after urlshorten: ) #only #stack
+      (stack after urlshorten: ) #only #stack
     } ifelse
   end
+  (stack at urlshorten exit: ) #only #stack
 } bind def
 
 scriptname (urlshorten) eq
