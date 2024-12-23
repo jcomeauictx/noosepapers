@@ -5,7 +5,7 @@
   10 dict begin
   /tries 10 def
   /urldomain (gnixl.com) def
-  /urldir (../gnixl/) urldomain string.add def
+  /urldir (../gnixl/) urldomain string.add (/) string.add def
   /linkdir (l/) def
   /linkpath urldir linkdir string.add def
   /urlprefix urldomain linkdir string.add def
@@ -19,11 +19,11 @@
         {
           {
             urand 36 10 string cvrs string.lower
-            %(stack after creating directory name: ) #only #stack
-            linkdir exch string.add dup 8#755
-            %(stack before os.mkdir: ) #only #stack
+            (stack after creating directory name: ) #only #stack
+            linkpath exch string.add dup 8#755
+            (stack before os.mkdir: ) #only #stack
             os.mkdir
-            %(stack after os.mkdir: ) #only #stack
+            (stack after os.mkdir: ) #only #stack
           }
           stopped
             {cleartomark mark}
