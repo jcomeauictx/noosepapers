@@ -34,18 +34,25 @@
         repeat
       %(after mkdir: ) #only #stack
       true ne  % failure would leave only a -mark- on stack
-        {(failed after ) #only tries #only ( attempts) # false}
+        % no use for the quoted URL, so `exch pop` it
+        {
+          (stack before exch pop: ) #only #stack
+          exch pop (failed after ) #only tries #only ( attempts) # false
+        }
         {
           dup (/../../.htaccess) string.add (a) file
           % chop first part of path to form URL
           exch urldir string.removeprefix
-          %(after forming URL: ) #only #stack
+          (after forming URL: ) #only #stack
           (Redirect 301 ) 1 index string.add  % "from" URL added
-          %(first part of redirect: ) #only #stack
+          (first part of redirect: ) #only #stack
           ( ) string.add 5 -1 roll string.add %#stack
           (\n) string.add 2 index exch writestring %#stack
           exch closefile %#stack
           exch pop  % discard `mark`
+          (before dup 3 -1 roll os.symlink: ) #only #stack
+          dup 3 -1 roll os.symlink  % symlink quoted URL to random dir
+          (after dup 3 -1 roll os.symlink: ) #only #stack
           urldomain exch string.add  % return as full URL except for scheme://
           true
         } ifelse
