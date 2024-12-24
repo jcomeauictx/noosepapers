@@ -6,9 +6,9 @@
   /tries 10 def
   /urldomain (gnixl.com) def
   /urldir (../gnixl/) urldomain string.add def
-  /linkdir (l/) def
-  /linkpath urldir (/) string.add linkdir string.add def
-  /urlprefix urldomain (/) string.add linkdir string.add def
+  /linkdir (/l/) def
+  /linkpath urldir linkdir string.add def
+  /urlprefix urldomain linkdir string.add def
   (definitions: ) #only currentdict ###
   dup [] urllib.parse.quote linkpath exch string.add
   dup os.path.exists (stack before `mark`: ) #only #stack
@@ -50,9 +50,13 @@
           (\n) string.add 2 index exch writestring %#stack
           exch closefile %#stack
           exch pop  % discard `mark`
-          (before dup 3 -1 roll os.symlink: ) #only #stack
-          dup 3 -1 roll os.symlink  % symlink quoted URL to random dir
-          (after dup 3 -1 roll os.symlink: ) #only #stack
+          % symlink quoted URL to random dir
+          dup linkdir string.removeprefix 3 -1 roll
+          (before os.symlink: ) #only #stack
+          os.symlink
+          (after os.symlink: ) #only #stack
+          % break if symlink failed
+          not {/os.symlink cvx /undefinedresult signalerror} if
           urldomain exch string.add  % return as full URL except for scheme://
           true
         } ifelse
