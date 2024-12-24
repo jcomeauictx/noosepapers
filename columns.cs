@@ -248,7 +248,7 @@
     (stack before y1 calculation: ) #only #stack
     6 index  % columns, possibly fractional
     3 index  % column (loop) number
-    5 index 1 sub  % start column, zero-based
+    6 index 1 sub  % start column, zero-based
     (stack before sub in y1 calculation: ) #only #stack
     sub  % number of columns that will be completed once this is drawn
     (stack after 1st sub in y1 calculation: ) #only #stack
