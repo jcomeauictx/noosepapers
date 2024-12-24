@@ -174,9 +174,11 @@
           /TimesNewRoman latin1font
         }
         if
-      (selecting TimesNewRoman-Latin1) #
-      /TimesNewRoman-Latin1 14 selectfont
-      (TimesNewRoman-Latin1 selected) #
+      % but for now we're using the standard encoding;
+      % Latin-1 lacks emdash, among other characters.
+      (selecting TimesNewRoman) #
+      /TimesNewRoman 14 selectfont
+      (TimesNewRoman selected) #
     }
     {
       (using font ) #only currentfont dup /FontName get ##only font.size #
