@@ -30,7 +30,10 @@
       }
       {
         %(stack at start of loop: ) #only #stack
-        dup wordindex get dup xwidth spacewidth add
+        dup wordindex get
+        % clean up word, at least by replacing `--` with emdash
+        (--) (\320) null string.replace
+        dup xwidth spacewidth add
         line string.copy string.truncate  % string with new word appended
         xwidth add  % add to running pixel length total
         %dup (line width after addition would be ) #only #
