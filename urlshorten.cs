@@ -12,7 +12,7 @@
   (definitions: ) #only currentdict ###
   dup [] urllib.parse.quote linkpath exch string.add
   dup os.path.exists (stack before `mark`: ) #only #stack
-    {128 string exch os.readlink urlprefix exch add true}
+    {128 string exch os.readlink urlprefix exch add exch pop true}
     {
       exch  % put quoted URL out of the way for now
       mark  % make it easy to clean stack regardless of where it failed
