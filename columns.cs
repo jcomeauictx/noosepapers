@@ -11,6 +11,7 @@
 /red {255 0 0} def
 /green {0 255 0} def
 /blue {0 0 255} def
+/emdash (\320) def  % only in standard encoding
 /hr {  % x y color -  % horizontal rule, for debugging vertical space problems
   gsave setrgbcolor pagewidth 2 index dup add sub  % right margin = left
   3 1 roll 0 3 1 roll moveto rlineto stroke
@@ -88,13 +89,17 @@
 
 /lineshow {  % string final -
   (before show: ) #only #stack
-  {show}
-  {dup ( ) string.count dup cvbool  % count the spaces and set flag
-    {1 index xwidth linewidth exch sub exch div  % pixels space must occupy
-      0 ( ) ord 4 -1 roll (stack before widthshow: ) #only #stack widthshow
-    }
-    {pop show}
-    ifelse
+  {show}  % end of paragraph, don't worry about justification
+  { % not end of paragraph, so we have 3 possibilities:
+    % (1) a string containing one or more emdashes; use emdash for widthshow;
+    % (2) a string containing one or more spaces; use space for widthshow;
+    % (3) a single very long word; use ashow.
+    dup ( ) string.count dup cvbool  % count the spaces and set flag
+      {1 index xwidth linewidth exch sub exch div  % pixels space must occupy
+        0 ( ) ord 4 -1 roll (stack before widthshow: ) #only #stack widthshow
+      }
+      {pop show}
+      ifelse
   }
   ifelse
 } bind def
