@@ -12,6 +12,9 @@ TXTS := $(PDFS:.pdf=.txt)
 # manually make default.txt symlink to test text (other than lorem ipsum)
 TEXTFILE ?= default.txt
 BANNER ?= The Noose gallows.pgm Papers
+LINKDIR := ../gnixl/gnixl.com/l
+KEEPLINKS = $(addprefix $(LINKDIR)/, README.md index.html)
+LINKS = $(filter-out $(KEEPLINKS), $(wildcard $(LINKDIR)/*))
 ifneq ($(SHOWENV),)
 export
 else
@@ -79,5 +82,9 @@ clean:
 	rm -f *.[0-9]*.log *.[0-9]*.err
 distclean: clean
 	rm -f *.log $(filter-out $(TEXTFILE), $(wildcard *.txt))
+linkclean:
+	# NOTE: only to be used when testing! Once deployed, the links
+	# need to remain!
+	rm -rf dummy $(LINKS)
 .PRECIOUS: %.ps %.log %.txt
 .FORCE:
