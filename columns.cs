@@ -93,12 +93,22 @@
   { % not end of paragraph, so we have 3 possibilities:
     % (1) a string containing one or more emdashes; use emdash for widthshow;
     % (2) a string containing one or more spaces; use space for widthshow;
-    % (3) a single very long word; use ashow.
+    % (3) a single very long word (probably a URL); use ashow.
     dup ( ) string.count dup cvbool  % count the spaces and set flag
-      {1 index xwidth linewidth exch sub exch div  % pixels space must occupy
-        0 ( ) ord 4 -1 roll (stack before widthshow: ) #only #stack widthshow
+      {
+        1 index xwidth linewidth exch sub exch div  % pixels space must occupy
+        0 ( ) ord 4 -1 roll
+        (stack before widthshow: ) #only #stack
+        widthshow
       }
-      {pop show}
+      {
+        % ashow for very long word or URL
+        pop dup dup xwidth linewidth exch sub
+        exch strlen 1 sub div
+        0 3 -1 roll
+        (stack before ashow: ) #only #stack
+        ashow
+      }
       ifelse
   }
   ifelse
