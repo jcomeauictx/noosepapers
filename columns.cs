@@ -90,8 +90,10 @@
 /cwidthshow ( str#toshow str#char - bool#shown
   widthshow `toshow` expanding all instances of `char`
   if `char` doesn't exist in `toshow`, return `false`) docstring {
-    dup 1 index exch string.count dup cvbool
+    dup 2 index exch string.count dup cvbool
       {
+        (found ) #only dup #only ( instances of ") #only
+        1 index #only (" in ") #only 2 index #only (": ) #only #stack
         2 index xwidth linewidth exch sub exch div  % pixels char must occupy
         % need args in form `cx cy char string` for `widthshow`
         exch ord exch 0 4 2 roll exch
@@ -99,6 +101,8 @@
         widthshow true
       }
       {
+        (no ") #only 1 index #only (" in ") #only 2 index #only
+        (": ) #only #stack
         pop pop pop false
       }
       ifelse
@@ -113,7 +117,7 @@
     % (2) a string containing one or more spaces; use space for widthshow;
     % (3) a single very long word (probably a URL); use ashow.
     dup emdash cwidthshow
-      {(string shown expanding mdash: ) #only #stack pop}
+      {(string shown expanding emdash: ) #only #stack pop}
       {
         dup ( ) cwidthshow
           {(string shown expanding space: ) #only #stack pop}
