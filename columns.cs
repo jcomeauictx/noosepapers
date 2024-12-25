@@ -114,6 +114,7 @@
   {show}  % end of paragraph, don't worry about justification
   { % not end of paragraph, so we have 3 possibilities:
     % (1) a string containing one or more emdashes; use emdash for widthshow;
+    % NOTE: doesn't work as intended. adds space instead of stretching dash.
     % (2) a string containing one or more spaces; use space for widthshow;
     % (3) a single very long word (probably a URL); use ashow.
     dup emdash cwidthshow
