@@ -123,7 +123,8 @@
           {(string shown expanding space: ) #only #stack pop}
           {
             % ashow for very long word or URL
-            pop dup dup xwidth linewidth exch sub
+            (very long word or URL: ) #only #stack
+            dup dup xwidth linewidth exch sub
             exch strlen 1 sub div
             0 3 -1 roll
             (stack before ashow: ) #only #stack
