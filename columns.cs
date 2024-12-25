@@ -87,31 +87,49 @@
   end  % local variables dictionary
 } bind def
 
+/cwidthshow ( str#toshow str#char - bool#shown
+  widthshow `toshow` expanding all instances of `char`
+  if `char` doesn't exist in `toshow`, return `false`) docstring {
+    dup 1 index exch string.count dup cvbool
+      {
+        2 index xwidth linewidth exch sub exch div  % pixels char must occupy
+        % need args in form `cx cy char string` for `widthshow`
+        exch ord exch 0 4 2 roll exch
+        (stack before widthshow: ) #only #stack
+        widthshow true
+      }
+      {
+        pop pop pop false
+      }
+      ifelse
+  (stack at end of cwidthshow: ) #only #stack
+} bind def
+
 /lineshow {  % string final -
-  (before show: ) #only #stack
+  (stack at start of lineshow: ) #only #stack
   {show}  % end of paragraph, don't worry about justification
   { % not end of paragraph, so we have 3 possibilities:
     % (1) a string containing one or more emdashes; use emdash for widthshow;
     % (2) a string containing one or more spaces; use space for widthshow;
     % (3) a single very long word (probably a URL); use ashow.
-    dup ( ) string.count dup cvbool  % count the spaces and set flag
+    dup emdash cwidthshow
+      {(string shown expanding mdash: ) #only #stack pop}
       {
-        1 index xwidth linewidth exch sub exch div  % pixels space must occupy
-        0 ( ) ord 4 -1 roll
-        (stack before widthshow: ) #only #stack
-        widthshow
-      }
-      {
-        % ashow for very long word or URL
-        pop dup dup xwidth linewidth exch sub
-        exch strlen 1 sub div
-        0 3 -1 roll
-        (stack before ashow: ) #only #stack
-        ashow
-      }
-      ifelse
+        dup ( ) cwidthshow
+          {(string shown expanding space: ) #only #stack pop}
+          {
+            % ashow for very long word or URL
+            pop dup dup xwidth linewidth exch sub
+            exch strlen 1 sub div
+            0 3 -1 roll
+            (stack before ashow: ) #only #stack
+            ashow
+          }
+          ifelse
+      } ifelse
   }
   ifelse
+  (stack at end of lineshow: ) #only #stack
 } bind def
 
 /showparagraph {  % x0 y0 y1 wordlist wordindex - wordindex y
