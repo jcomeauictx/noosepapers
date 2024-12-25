@@ -27,9 +27,10 @@
   /hr ( x y color -  % horizontal rule
     from HTML; for debugging vertical space problems) docstring {
     gsave setrgbcolor pagewidth 2 index dup add sub  % right margin = left
-    3 1 roll #stack 0 #stack 3 1 roll #stack moveto #stack rlineto stroke #stack
+    3 1 roll 0 3 1 roll moveto rlineto stroke
     grestore
   } bind def
+  /emdash (\320) def  % only in standard encoding
   (common: creating Latin1 fonts) #
   [/TimesNewRoman-Latin1 /Helvetica-Latin1]
     {

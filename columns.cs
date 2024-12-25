@@ -2,21 +2,7 @@
 % typographicwebdesign.com/setting-text/font-size-line-height-measure-alignment/
 % NOTE: if debugging messages are removed, replace each `#` with `pop`
 (starting columns.cs) #
-/loremipsum where {pop} {(loremipsum.cs) run} ifelse
-/latin1font where {pop} {(latin1font.cs) run} ifelse
-/paragraphs where {pop} {(paragraphs.cs) run} ifelse
-/urlshorten where {pop} {(urlshorten.cs) run} ifelse
-/banner where {pop} {(banner.cs) run} ifelse
-/margin where {pop} {/margin 10 def} ifelse
-/red {255 0 0} def
-/green {0 255 0} def
-/blue {0 0 255} def
-/emdash (\320) def  % only in standard encoding
-/hr {  % x y color -  % horizontal rule, for debugging vertical space problems
-  gsave setrgbcolor pagewidth 2 index dup add sub  % right margin = left
-  3 1 roll 0 3 1 roll moveto rlineto stroke
-  grestore
-} bind def
+(common.cs) run
 /columnline {  % wordlist index - endofparagraph newindex string
   (starting columnline with stack: ) #only #stack
   10 dict begin  % languagelevel 3 here, so dict can grow as needed
