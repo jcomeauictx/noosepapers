@@ -111,17 +111,17 @@
     % (2) a string containing one or more spaces; use space for widthshow;
     % (3) a single very long word (probably a URL); use ashow.
     dup emdash cwidthshow
-      {(string shown expanding emdash: ) #only #stack pop}
+      {(expanding emdash with lineshow: ) #only #stack pop}
       {
         dup ( ) cwidthshow
-          {(string shown expanding space: ) #only #stack pop}
+          {(expanding space with lineshow: ) #only #stack pop}
           {
             % ashow for very long word or URL
-            (very long word or URL: ) #only #stack
+            (very long word or URL in lineshow: ) #only #stack
             dup dup xwidth linewidth exch sub
             exch strlen 1 sub div
             0 3 -1 roll
-            (stack before ashow: ) #only #stack
+            (stack before ashow in lineshow: ) #only #stack
             ashow
           }
           ifelse
