@@ -65,7 +65,7 @@ upload:
 	 . $(SERVER):$(DOCROOT)/$(SERVER)/
 %.txt: %.pdf
 	pdftotext -nopgbrk -eol unix -enc Latin1 $<
-	[ -e $*.sed ] && sed -i -f $*.sed $@
+	[ -e $*.sed ] && sed -f $*.sed -i $@
 edit:
 	vi columns.cs paragraphs.cs
 push:
