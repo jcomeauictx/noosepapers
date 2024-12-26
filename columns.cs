@@ -95,14 +95,15 @@
   (stack at end of cwidthshow: ) #only #stack
 } bind def
 
-/lineshow {  % string final -
+/lineshow ( str#string bool#final - bool#shown
+  show line `string` of column text) docstring {
   (stack at start of lineshow: ) #only #stack
   { % end of paragraph, don't worry about justification
     % but if top of column, and empty line, drop it
     (lineshow: end of paragraph, simplest case) #
     dup () eq 9 index currentpoint exch pop (check: ) #only #stack eq and
-      {pop}
-      {show}
+      {pop false}
+      {show true}
       ifelse
   }
   { % not end of paragraph, so we have 3 possibilities:
@@ -126,6 +127,7 @@
           }
           ifelse
       } ifelse
+      true  % `string` was shown in any of the above cases
   }
   ifelse
   (stack at end of lineshow: ) #only #stack
@@ -139,7 +141,8 @@
   /y exch def  /x exch def
   {wordlist wordindex columnline (after columnline: ) #only #stack
     x y moveto 2 index lineshow (after lineshow: ) #only #stack
-    /wordindex exch def y lineheight sub /y exch def
+    {y lineheight sub /y exch def} if
+    /wordindex exch def
     % no need to subtract another line at end, each paragraph is already
     % followed by a 2nd linefeed which will do the job.
     % we're done if it's the end of a paragraph OR column height is exceeded
