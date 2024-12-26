@@ -97,7 +97,14 @@
 
 /lineshow {  % string final -
   (stack at start of lineshow: ) #only #stack
-  {show}  % end of paragraph, don't worry about justification
+  { % end of paragraph, don't worry about justification
+    % but if top of column, and empty line, drop it
+    (lineshow: end of paragraph, simplest case) #
+    dup () eq 9 index currentpoint exch pop (check: ) #only #stack eq and
+      {pop}
+      {show}
+      ifelse
+  }
   { % not end of paragraph, so we have 3 possibilities:
     % (1) a string containing one or more emdashes; use emdash for widthshow;
     % NOTE: doesn't work as intended. adds space instead of stretching dash.
