@@ -312,7 +312,7 @@
   (stack after columns `for` loop: ) #only #stack
   (discarding final column number: ) #only #
   (discarding initial column number: ) #only #
-  (discarding file object: ) #only #
+  (discarding file object: ) #only ##
   (discarding number of columns: ) #only #
   (discarding top of columns: ) #only #
   pcount pindex  % leave paragraph count and word index on stack

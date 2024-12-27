@@ -17,7 +17,11 @@ scriptname (noosepaper) eq {
   % first subtract margin and lineheight from banner baseline
   %margin sub
   2.5 1  % 2.5 columns, starting at column 1
-  {sys.argv 1 get (r) file} stopped {LoremIpsum} if (Headline Goes Here) columns
+  {sys.argv 1 get (r) file} stopped {LoremIpsum} if
+  (The Federalist Papers) columns
+  (discarding word index: ) #only #
+  (discarding paragraph count: ) #only #
+  (remaining stack: ) #only #stack
   showpage
 }
 if
